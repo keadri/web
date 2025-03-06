@@ -7,7 +7,7 @@ import InternationalClock from './components/InternationalClock';
 import { useState, useEffect } from 'react';
 import { useLanguage } from './contexts/LanguageContext';
 import dynamic from 'next/dynamic';
-import { ServiceIcon } from './components/ServiceIcon';
+import ServiceIcon from './components/ServiceIcon';
 
 const Earth3D = dynamic(() => import('./components/Earth3D'), { ssr: false });
 
