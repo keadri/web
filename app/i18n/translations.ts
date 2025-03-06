@@ -1,4 +1,4 @@
-export const translations = {
+const translations = {
   zh: {
     title: 'WoM Offer',
     companyName: '上海旺米优途科技教育有限公司',

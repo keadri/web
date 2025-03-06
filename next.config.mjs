@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  output: 'export',
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
-  // 根据环境设置不同的配置
-  ...(process.env.NODE_ENV === 'production' 
-    ? {
-        basePath: '/Web',
-        assetPrefix: '/Web',
-      }
-    : {})
+  basePath: process.env.NODE_ENV === 'production' ? '/Web' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Web/' : '',
 };
 
 export default nextConfig; 
