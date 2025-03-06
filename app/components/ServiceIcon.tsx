@@ -17,7 +17,7 @@ const ServiceIcon: FC<ServiceIconProps> = ({ name, className = '' }) => {
   };
 
   const Icon = iconMap[name as keyof typeof iconMap] || FaFileAlt;
-  return <Icon className={className} />;
+  return <Icon className={`text-white ${className}`} />;
 };
 
 export default ServiceIcon; 

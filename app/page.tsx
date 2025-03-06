@@ -134,7 +134,7 @@ export default function Home() {
               >
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="flex items-start space-x-4">
-                  <ServiceIcon name={service.icon} className="w-8 h-8 text-blue-400 flex-shrink-0" />
+                  <ServiceIcon name={service.icon} className="w-8 h-8 flex-shrink-0" />
                   <div>
                     <h3 className="text-xl font-semibold mb-4 text-white">{service.title}</h3>
                     <p className="text-gray-300">{service.description}</p>
@@ -176,7 +176,7 @@ export default function Home() {
                 }}
               >
                 <h3 className="text-2xl font-semibold mb-6 text-white flex items-center">
-                  <ServiceIcon name="graduation-cap" className="w-6 h-6 text-blue-400 mr-3" />
+                  <ServiceIcon name="graduation-cap" className="w-6 h-6 mr-3" />
                   {t('professionalBackground')}
                 </h3>
                 <ul className="space-y-4">
@@ -207,7 +207,7 @@ export default function Home() {
                 }}
               >
                 <h3 className="text-2xl font-semibold mb-6 text-white flex items-center">
-                  <ServiceIcon name="passport" className="w-6 h-6 text-blue-400 mr-3" />
+                  <ServiceIcon name="passport" className="w-6 h-6 mr-3" />
                   {t('identityAdvantage')}
                 </h3>
                 <ul className="space-y-4">
@@ -239,7 +239,7 @@ export default function Home() {
               }}
             >
               <h3 className="text-2xl font-semibold mb-6 text-white flex items-center">
-                <ServiceIcon name="document-check" className="w-6 h-6 text-blue-400 mr-3" />
+                <ServiceIcon name="document-check" className="w-6 h-6 mr-3" />
                 {t('ourCommitment')}
               </h3>
               <ul className="space-y-4">
