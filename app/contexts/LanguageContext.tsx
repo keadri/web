@@ -1,45 +1,92 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import translations from '../i18n/translations';
 
 type Language = 'zh' | 'en';
-type TranslationType = typeof translations.zh | typeof translations.en;
+type TranslationKey = keyof typeof translations.zh | keyof typeof translations.en;
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => any;
+  t: (key: TranslationKey) => any;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('zh');
+function getInitialLanguage(): Language {
+  if (typeof window === 'undefined') return 'zh';
+  const saved = localStorage.getItem('language');
+  console.log('Initial language from localStorage:', saved);
+  return (saved === 'en' || saved === 'zh') ? saved : 'zh';
+}
 
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem('language', lang);
-  };
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [mounted, setMounted] = useState(false);
 
-  const t = (key: string) => {
-    const currentTranslations = translations[language] as TranslationType;
-    const keys = key.split('.');
-    let value: any = currentTranslations;
-
-    for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k as keyof typeof value];
-      } else {
-        return key;
-      }
+  // 使用 useCallback 来记忆 setLanguage 函数
+  const setLanguage = useCallback((lang: Language) => {
+    console.log('Setting language to:', lang);
+    if (lang !== 'zh' && lang !== 'en') {
+      console.error('Invalid language:', lang);
+      return;
     }
+    if (lang === language) {
+      console.log('Language already set to:', lang);
+      return;
+    }
+    setLanguageState(lang);
+    try {
+      localStorage.setItem('language', lang);
+      console.log('Language saved to localStorage:', lang);
+    } catch (error) {
+      console.error('Failed to save language:', error);
+    }
+  }, [language]);
 
-    return value;
-  };
+  // 组件挂载时同步语言设置
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem('language');
+    console.log('Mounted, saved language:', saved);
+    if (saved === 'en' || saved === 'zh') {
+      setLanguageState(saved);
+    }
+  }, []);
+
+  // 监听其他标签页的语言变化
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'language' && e.newValue) {
+        console.log('Storage event:', e.newValue);
+        if (e.newValue === 'zh' || e.newValue === 'en') {
+          setLanguageState(e.newValue);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  const t = useCallback((key: TranslationKey) => {
+    try {
+      const value = translations[language][key];
+      return value ?? key;
+    } catch (error) {
+      console.error('Translation error:', error);
+      return key;
+    }
+  }, [language]);
+
+  // 在客户端渲染之前返回一个加载状态
+  if (!mounted && typeof window !== 'undefined') {
+    return null;
+  }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
