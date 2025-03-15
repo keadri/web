@@ -98,8 +98,8 @@ export default function Home() {
               className="w-full sm:w-auto"
             >
               <a
-                href="#consultation"
-                className="w-full sm:w-auto inline-block bg-blue-600/80 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg font-semibold hover:bg-blue-700/80 transition-all hover:scale-105 text-center"
+                href="#contact"
+                className="w-full sm:w-auto inline-block bg-white text-black px-6 sm:px-8 py-3 sm:py-4 rounded-md text-base sm:text-lg font-semibold hover:bg-gray-100 transition-all hover:scale-105 text-center"
               >
                 {t('freeConsultation')}
               </a>
@@ -468,16 +468,6 @@ export default function Home() {
                     </div>
                   </motion.div>
                 </div>
-
-                {/* QR Code Hint */}
-                <motion.div 
-                  className="mt-8 bg-white/5 p-4 rounded-xl"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <p className="text-gray-300 text-sm">
-                    {t('qrCodeHint')}
-                  </p>
-                </motion.div>
               </div>
             </motion.div>
           </div>

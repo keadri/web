@@ -95,8 +95,8 @@ export default function Navbar() {
               {t('contactUs')}
             </Link>
             <motion.a
-              href="#consultation"
-              className="text-gray-800 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium"
+              href="#contact"
+              className="inline-block bg-white text-black px-4 py-2 rounded-md text-sm font-medium border border-black hover:bg-gray-100 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -130,7 +130,10 @@ export default function Navbar() {
           <Link href="#contact" className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">
             {t('contactUs')}
           </Link>
-          <Link href="#consultation" className="block px-3 py-2 text-white bg-black hover:bg-gray-800 rounded-md">
+          <Link 
+            href="#contact" 
+            className="block px-3 py-2 text-black bg-white hover:bg-gray-100 rounded-md border border-black"
+          >
             {t('freeConsultation')}
           </Link>
         </div>
